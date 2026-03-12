@@ -24,6 +24,7 @@ htmlLab/
 │   ├── templates/         # Django 模板目录
 │   │   └── manage.html   # 管理模式界面模板
 │   ├── static/            # 静态文件目录
+│   │   ├── base.html     # 页面生成模板
 │   │   ├── bootstrap/    # Bootstrap CSS/JS
 │   │   └── jquery/       # jQuery 库
 │   ├── settings.py        # Django 设置
@@ -78,17 +79,22 @@ python manage.py runserver
 使用内置命令快速创建新页面：
 
 ```bash
-# 创建新页面（基于 index.html 模板）
+# 创建新页面（基于 htmllab/static/base.html 模板）
 python manage.py createpage about
 
 # 创建带自定义标题的页面
 python manage.py createpage contact --title "联系我们"
 
 # 使用其他模板文件
-python manage.py createpage blog --template about.html --title "博客"
+python manage.py createpage blog --template other_template.html --title "博客"
 ```
 
 创建的文件将保存在 `www/` 目录，可直接通过浏览器访问。
+
+**模板系统：**
+- 默认模板：`htmllab/static/base.html` - 包含 Bootstrap 5 基础布局
+- 模板使用 `{{PAGE_TITLE}}` 和 `{{PAGE_DESCRIPTION}}` 作为占位符
+- 自定义模板需放在 `htmllab/static/` 目录下
 
 ### 5. 管理模式
 

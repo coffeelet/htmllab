@@ -1,6 +1,6 @@
 """
 Management command to create a new HTML page in www directory.
-Uses htmllab/static/index.html as template.
+Uses htmllab/static/base.html as template.
 """
 
 import os
@@ -11,7 +11,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 
 class Command(BaseCommand):
-    help = 'Create a new HTML page in www directory using index.html as template'
+    help = 'Create a new HTML page in www directory using base.html as template'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -28,8 +28,8 @@ class Command(BaseCommand):
         parser.add_argument(
             '--template',
             type=str,
-            default='index.html',
-            help='Template file to use (default: index.html)'
+            default='base.html',
+            help='Template file to use (default: base.html in htmllab/static/)'
         )
 
     def handle(self, *args, **options):
@@ -47,13 +47,14 @@ class Command(BaseCommand):
         
         # Define paths
         www_dir = Path(settings.WWW_DIR)
-        template_path = www_dir / template_name
+        static_dir = Path(settings.STATIC_DIR)
+        template_path = static_dir / template_name
         target_path = www_dir / filename
         
         # Check if template exists
         if not template_path.exists():
             raise CommandError(
-                f'Template file "{template_name}" not found in {www_dir}'
+                f'Template file "{template_name}" not found in {static_dir}'
             )
         
         # Check if target file already exists
@@ -71,20 +72,14 @@ class Command(BaseCommand):
         
         # Replace placeholders
         page_content = template_content.replace(
-            '<title>HTML Lab - Web 服务器模拟器</title>',
-            f'<title>{title} - HTML Lab</title>'
+            '{{PAGE_TITLE}}',
+            title
         )
         
-        # Replace h1 title
+        # Replace description
         page_content = page_content.replace(
-            '<h1 class="display-4 fw-bold text-white mb-2">HTML Lab</h1>',
-            f'<h1 class="display-4 fw-bold text-white mb-2">{title}</h1>'
-        )
-        
-        # Replace subtitle
-        page_content = page_content.replace(
-            '<p class="lead text-white-50">欢迎使用 Web 服务器模拟器</p>',
-            f'<p class="lead text-white-50">Generated from template</p>'
+            '{{PAGE_DESCRIPTION}}',
+            f'Generated page: {title}'
         )
         
         # Write new file

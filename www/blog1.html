@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客1</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-header .lead {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .content-section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        footer {
+            background-color: #2d3748;
+            color: #a0aec0;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="page-header">
+        <div class="container">
+            <h1>博客1</h1>
+            <p class="lead">Generated page: 博客1</p>
+        </div>
+    </header>
+    
+    <!-- 主要内容 -->
+    <main class="container">
+        <section class="content-section">
+            <h2><i class="bi bi-info-circle me-2"></i>页面内容</h2>
+            <p>在这里添加您的页面内容。这是一个基于 Bootstrap 5 的基础模板。</p>
+            <p>您可以：</p>
+            <ul>
+                <li>编辑此 HTML 文件来自定义内容</li>
+                <li>添加 Bootstrap 组件和样式</li>
+                <li>添加 JavaScript 交互功能</li>
+                <li>链接到其他页面</li>
+            </ul>
+        </section>
+        
+        <section class="content-section">
+            <h2><i class="bi bi-stars me-2"></i>示例区块</h2>
+            <p>这是一个示例内容区块。您可以根据需要添加更多区块。</p>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">卡片 1</h5>
+                            <p class="card-text">这是第一个示例卡片。</p>
+                            <a href="/" class="btn btn-primary">返回首页</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">卡片 2</h5>
+                            <p class="card-text">这是第二个示例卡片。</p>
+                            <a href="/manage/" class="btn btn-secondary">管理页面</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">卡片 3</h5>
+                            <p class="card-text">这是第三个示例卡片。</p>
+                            <a href="#" class="btn btn-outline-primary">了解更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">HTML Lab &copy; 2026 - Django 5 Web Server Simulator</p>
+            <small>Powered by Bootstrap 5 & jQuery</small>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="/static/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

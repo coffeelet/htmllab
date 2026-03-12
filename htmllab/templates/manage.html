@@ -14,33 +14,28 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: #f5f5f5;
-            height: 100%;
-            width: 100%;
             overflow: hidden;
         }
 
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* 顶部导航栏 */
+        /* 顶部导航栏 - 固定在顶部 */
         .manage-navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 0.75rem 1.5rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
             z-index: 1000;
         }
-        
+
         .manage-navbar .navbar-brand {
             color: white !important;
             font-weight: 600;
             font-size: 1.25rem;
         }
-        
+
         .manage-navbar .nav-link {
             color: rgba(255,255,255,0.9) !important;
             font-weight: 500;
@@ -48,40 +43,40 @@
             transition: all 0.2s;
             border-radius: 0.375rem;
         }
-        
+
         .manage-navbar .nav-link:hover {
             color: white !important;
             background-color: rgba(255,255,255,0.1);
         }
-        
+
         .manage-navbar .dropdown-menu {
             border: none;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             border-radius: 0.5rem;
             padding: 0.5rem 0;
         }
-        
+
         .manage-navbar .dropdown-item {
             padding: 0.625rem 1.25rem;
             font-weight: 500;
             color: #4a5568;
             transition: all 0.2s;
         }
-        
+
         .manage-navbar .dropdown-item:hover {
             background-color: #f7fafc;
             color: #667eea;
         }
-        
+
         .manage-navbar .dropdown-item.active {
             background-color: #667eea;
             color: white;
         }
-        
+
         .manage-navbar .dropdown-toggle::after {
             margin-left: 0.5rem;
         }
-        
+
         /* 页面信息栏 */
         .page-info-bar {
             background-color: white;
@@ -91,7 +86,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .page-info-bar .page-title {
             font-weight: 600;
             color: #2d3748;
@@ -99,20 +94,20 @@
             align-items: center;
             gap: 0.5rem;
         }
-        
+
         .page-info-bar .page-stats {
             color: #718096;
             font-size: 0.875rem;
         }
-        
-        /* iframe 容器 */
+
+        /* iframe 容器 - 固定高度，内部可滚动 */
         .iframe-container {
-            flex: 1;
-            position: relative;
+            width: 100%;
+            height: calc(100vh - 140px); /* 减去导航栏和信息栏的高度 */
             background-color: #e2e8f0;
             padding: 1rem;
         }
-        
+
         .iframe-wrapper {
             width: 100%;
             height: 100%;
@@ -121,32 +116,33 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-        
+
         .iframe-wrapper iframe {
             width: 100%;
             height: 100%;
             border: none;
             background-color: white;
-            overflow: hidden;
+            overflow: auto; /* iframe 内部可以有滚动条 */
         }
-        
+
         /* 响应式调整 */
         @media (max-width: 768px) {
             .manage-navbar {
                 padding: 0.5rem 1rem;
             }
-            
+
             .page-info-bar {
                 flex-direction: column;
                 gap: 0.5rem;
                 text-align: center;
             }
-            
+
             .iframe-container {
                 padding: 0.5rem;
+                height: calc(100vh - 180px); /* 移动端高度调整 */
             }
         }
-        
+
         /* 徽章样式 */
         .badge-pages {
             background-color: rgba(255,255,255,0.2);
@@ -166,12 +162,12 @@
                 <i class="bi bi-grid-3x3-gap-fill me-2"></i>
                 HTML Lab 管理
             </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     style="border-color: rgba(255,255,255,0.3);">
                 <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- 页面下拉菜单 -->
@@ -186,7 +182,7 @@
                             <li><hr class="dropdown-divider"></li>
                             {% for page in pages %}
                             <li>
-                                <a class="dropdown-item {% if page.filename == current_page %}active{% endif %}" 
+                                <a class="dropdown-item {% if page.filename == current_page %}active{% endif %}"
                                    href="?page={{ page.filename }}">
                                     <i class="bi bi-file-earmark me-2"></i>{{ page.title }}
                                 </a>
@@ -196,7 +192,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    
+
                     <!-- Bootstrap 指南 -->
                     <li class="nav-item">
                         <a class="nav-link" href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank">
@@ -205,7 +201,7 @@
                             <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
                         </a>
                     </li>
-                    
+
                     <!-- jQuery 指南 -->
                     <li class="nav-item">
                         <a class="nav-link" href="https://api.jquery.com/" target="_blank">
@@ -214,7 +210,7 @@
                             <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
                         </a>
                     </li>
-                    
+
                     <!-- Web 颜色指南 -->
                     <li class="nav-item">
                         <a class="nav-link" href="https://colorhunt.co/" target="_blank">
@@ -223,7 +219,7 @@
                             <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
                         </a>
                     </li>
-                    
+
                     <!-- MDN Web Docs -->
                     <li class="nav-item">
                         <a class="nav-link" href="https://developer.mozilla.org/zh-CN/" target="_blank">
@@ -233,7 +229,7 @@
                         </a>
                     </li>
                 </ul>
-                
+
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="/" target="_blank">
@@ -245,7 +241,7 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- 页面信息栏 -->
     <div class="page-info-bar">
         <div class="page-title">
@@ -257,14 +253,14 @@
             共 {{ page_count }} 个页面
         </div>
     </div>
-    
+
     <!-- iframe 容器 -->
     <div class="iframe-container">
         <div class="iframe-wrapper">
             <iframe src="{{ iframe_url }}" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
         </div>
     </div>
-    
+
     <!-- Bootstrap JS -->
     <script src="/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
