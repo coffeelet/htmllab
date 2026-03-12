@@ -118,3 +118,11 @@ STATIC_URL = 'static/'
 
 # WWW 目录配置
 WWW_DIR = BASE_DIR / 'www'
+
+# Static files directory
+STATIC_DIR = BASE_DIR / 'htmllab' / 'static'
+
+# Static files directories for Django staticfiles app
+STATICFILES_DIRS = [
+    BASE_DIR / 'htmllab' / 'static',
+]
