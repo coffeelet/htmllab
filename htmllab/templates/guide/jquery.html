@@ -1,0 +1,400 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 快速指南 - HTML Lab</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .guide-header {
+            background: linear-gradient(135deg, #0769ad 0%, #0769ad 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .section-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-card h2 {
+            color: #0769ad;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        .section-card h3 {
+            color: #495057;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            color: #d63384;
+            font-size: 0.875em;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e9ecef;
+            overflow-x: auto;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            color: #212529;
+        }
+        .tip-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #0769ad;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+        .method-table td:first-child {
+            font-weight: bold;
+            color: #0769ad;
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-header">
+        <div class="container">
+            <h1><i class="bi bi-file-code me-2"></i>jQuery 快速指南</h1>
+            <p class="mb-0">最流行的 JavaScript 库入门指南</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 简介 -->
+        <div class="section-card">
+            <h2><i class="bi bi-info-circle me-2"></i>什么是 jQuery？</h2>
+            <p>jQuery 是一个快速、小巧、功能丰富的 JavaScript 库。它使 HTML 文档遍历和操作、事件处理、动画和 Ajax 变得更加简单。</p>
+            <div class="tip-box">
+                <strong>💡 核心理念：</strong>写得更少，做得更多 (Write Less, Do More)
+            </div>
+            
+            <h3>基础语法</h3>
+            <pre><code>// 标准写法
+$(document).ready(function() {
+    // DOM 加载完成后执行的代码
+});
+
+// 简写形式
+$(function() {
+    // DOM 加载完成后执行的代码
+});
+
+// 箭头函数写法（现代浏览器）
+$(() =&gt; {
+    // DOM 加载完成后执行的代码
+});</code></pre>
+        </div>
+
+        <!-- 选择器 -->
+        <div class="section-card">
+            <h2><i class="bi bi-search me-2"></i>1. 选择器（Selector）</h2>
+            <p>jQuery 使用 CSS 选择器语法来选取 HTML 元素。</p>
+
+            <h3>基本选择器</h3>
+            <pre><code>// 通过 ID 选择
+$("#myId")          // 选择 id="myId" 的元素
+
+// 通过类名选择
+$(".myClass")       // 选择 class="myClass" 的所有元素
+
+// 通过标签选择
+$("p")              // 选择所有 &lt;p&gt; 段落
+$("div")            // 选择所有 &lt;div&gt; 元素
+
+// 组合选择
+$("div.container")  // 选择 class="container" 的 div</code></pre>
+
+            <h3>层级选择器</h3>
+            <pre><code>$("ul li")          // 选择 ul 下的所有 li
+$("ul &gt; li")       // 选择 ul 的直接子 li
+$("h2 + p")         // 选择紧跟在 h2 后的 p
+$("div ~ p")        // 选择 div 后的所有同级 p</code></pre>
+
+            <h3>过滤选择器</h3>
+            <pre><code>$("li:first")       // 第一个 li
+$("li:last")        // 最后一个 li
+$("li:even")        // 偶数索引的 li (0, 2, 4...)
+$("li:odd")         // 奇数索引的 li (1, 3, 5...)
+$("li:eq(2)")       // 索引为 2 的 li（第3个）
+$("li:gt(1)")       // 索引大于 1 的 li</code></pre>
+        </div>
+
+        <!-- DOM 操作 -->
+        <div class="section-card">
+            <h2><i class="bi bi-box-seam me-2"></i>2. DOM 操作</h2>
+
+            <h3>内容操作</h3>
+            <pre><code>// 获取/设置 HTML 内容
+$("#box").html();           // 获取 HTML
+$("#box").html("&lt;b&gt;粗体&lt;/b&gt;");  // 设置 HTML
+
+// 获取/设置文本内容
+$("#box").text();           // 获取纯文本
+$("#box").text("普通文本"); // 设置文本（自动转义 HTML）
+
+// 获取/设置表单值
+$("#input").val();          // 获取值
+$("#input").val("新值");    // 设置值</code></pre>
+
+            <h3>属性操作</h3>
+            <pre><code>// 获取/设置属性
+$("img").attr("src");               // 获取 src 属性
+$("img").attr("src", "new.jpg");    // 设置 src 属性
+$("img").attr({
+    "src": "new.jpg",
+    "alt": "新图片"
+});                                // 同时设置多个属性
+
+$("img").removeAttr("title");       // 移除属性</code></pre>
+
+            <h3>样式操作</h3>
+            <pre><code>// 添加/移除类
+$("div").addClass("active");        // 添加类
+$("div").removeClass("active");     // 移除类
+$("div").toggleClass("active");     // 切换类（有则移除，无则添加）
+$("div").hasClass("active");        // 检查是否有类（返回 true/false）
+
+// 直接操作样式
+$("div").css("color", "red");       // 设置单个样式
+$("div").css({                      // 设置多个样式
+    "color": "red",
+    "font-size": "16px",
+    "background-color": "#f0f0f0"
+});
+
+$("div").css("color");              // 获取样式值</code></pre>
+
+            <h3>元素操作</h3>
+            <pre><code>// 添加元素
+$("ul").append("&lt;li&gt;新项&lt;/li&gt;");       // 在末尾添加
+$("ul").prepend("&lt;li&gt;首项&lt;/li&gt;");      // 在开头添加
+$("li").after("&lt;li&gt;后一项&lt;/li&gt;");      // 在某元素后添加
+$("li").before("&lt;li&gt;前一项&lt;/li&gt;");     // 在某元素前添加
+
+// 删除元素
+$("div").remove();                  // 删除元素及子元素
+$("div").empty();                   // 清空子元素（保留本身）
+
+// 复制元素
+$("div").clone();                   // 克隆元素
+$("div").clone(true);               // 克隆并复制事件</code></pre>
+        </div>
+
+        <!-- 事件处理 -->
+        <div class="section-card">
+            <h2><i class="bi bi-lightning me-2"></i>3. 事件处理</h2>
+
+            <h3>常用事件</h3>
+            <table class="table table-sm method-table">
+                <thead>
+                    <tr>
+                        <th>事件</th>
+                        <th>说明</th>
+                        <th>示例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>click()</td><td>点击事件</td><td><code>$("#btn").click(fn)</code></td></tr>
+                    <tr><td>dblclick()</td><td>双击事件</td><td><code>$("#box").dblclick(fn)</code></td></tr>
+                    <tr><td>mouseenter()</td><td>鼠标移入</td><td><code>$("#box").mouseenter(fn)</code></td></tr>
+                    <tr><td>mouseleave()</td><td>鼠标移出</td><td><code>$("#box").mouseleave(fn)</code></td></tr>
+                    <tr><td>focus()</td><td>获得焦点</td><td><code>$("input").focus(fn)</code></td></tr>
+                    <tr><td>blur()</td><td>失去焦点</td><td><code>$("input").blur(fn)</code></td></tr>
+                    <tr><td>change()</td><td>值改变</td><td><code>$("select").change(fn)</code></td></tr>
+                    <tr><td>submit()</td><td>表单提交</td><td><code>$("form").submit(fn)</code></td></tr>
+                </tbody>
+            </table>
+
+            <h3>事件绑定</h3>
+            <pre><code>// 方式 1：直接绑定
+$("#btn").click(function() {
+    alert("点击了按钮！");
+});
+
+// 方式 2：使用 on（推荐，支持动态元素）
+$("#btn").on("click", function() {
+    alert("点击了按钮！");
+});
+
+// 方式 3：事件委托（动态添加的元素也能响应）
+$("#list").on("click", "li", function() {
+    // 点击 list 中的任意 li 都会触发
+    $(this).toggleClass("selected");
+});
+
+// 解绑事件
+$("#btn").off("click");  // 解绑所有 click 事件</code></pre>
+
+            <h3>事件对象</h3>
+            <pre><code>$("a").click(function(event) {
+    event.preventDefault();  // 阻止默认行为（如跳转）
+    event.stopPropagation(); // 阻止事件冒泡
+    
+    // event 对象常用属性
+    event.target;            // 触发事件的元素
+    event.currentTarget;     // 当前处理事件的元素（this）
+    event.pageX;             // 鼠标点击的 X 坐标
+    event.pageY;             // 鼠标点击的 Y 坐标
+    event.which;             // 按下的按键（1=左键, 2=中键, 3=右键）
+});</code></pre>
+        </div>
+
+        <!-- 动画效果 -->
+        <div class="section-card">
+            <h2><i class="bi bi-film me-2"></i>4. 动画效果</h2>
+
+            <h3>显示/隐藏</h3>
+            <pre><code>$("#box").show();           // 显示
+$("#box").hide();           // 隐藏
+$("#box").toggle();         // 切换显示/隐藏
+
+// 带速度参数（毫秒或字符串）
+$("#box").show(500);        // 500毫秒
+$("#box").hide("slow");     // 慢速（600ms）
+$("#box").show("fast");     // 快速（200ms）
+
+// 带回调函数
+$("#box").hide(500, function() {
+    console.log("动画完成！");
+});</code></pre>
+
+            <h3>淡入淡出</h3>
+            <pre><code>$("#box").fadeIn();         // 淡入
+$("#box").fadeOut();        // 淡出
+$("#box").fadeToggle();     // 切换淡入/淡出
+$("#box").fadeTo(400, 0.5); // 淡到指定透明度（0.5）</code></pre>
+
+            <h3>滑动</h3>
+            <pre><code>$("#box").slideDown();      // 向下滑动显示
+$("#box").slideUp();        // 向上滑动隐藏
+$("#box").slideToggle();    // 切换滑动</code></pre>
+
+            <h3>自定义动画</h3>
+            <pre><code>$("#box").animate({
+    width: "300px",
+    height: "200px",
+    opacity: 0.5,
+    marginLeft: "100px"
+}, 1000, function() {
+    // 动画完成后的回调
+    console.log("动画完成");
+});
+
+// 链式调用
+$("#box")
+    .slideUp(300)
+    .slideDown(300)
+    .fadeOut(300)
+    .fadeIn(300);</code></pre>
+        </div>
+
+        <!-- Ajax -->
+        <div class="section-card">
+            <h2><i class="bi bi-globe me-2"></i>5. Ajax 请求</h2>
+            <p>无需刷新页面即可与服务器交换数据。</p>
+
+            <h3>GET 请求</h3>
+            <pre><code>$.get("/api/users", function(data) {
+    console.log(data);
+});
+
+// 带参数
+$.get("/api/users", { id: 1 }, function(data) {
+    console.log(data);
+});</code></pre>
+
+            <h3>POST 请求</h3>
+            <pre><code>$.post("/api/users", {
+    name: "张三",
+    email: "zhangsan@example.com"
+}, function(data) {
+    console.log("提交成功:", data);
+});</code></pre>
+
+            <h3>通用 AJAX</h3>
+            <pre><code>$.ajax({
+    url: "/api/users",
+    type: "GET",           // 或 "POST"
+    data: { id: 1 },       // 发送的数据
+    dataType: "json",      // 期望返回的数据类型
+    success: function(data) {
+        console.log("成功:", data);
+    },
+    error: function(xhr, status, error) {
+        console.log("错误:", error);
+    },
+    complete: function() {
+        console.log("请求完成");
+    }
+});</code></pre>
+        </div>
+
+        <!-- 常用方法速查 -->
+        <div class="section-card">
+            <h2><i class="bi bi-journal-bookmark me-2"></i>6. 常用方法速查</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>遍历</h4>
+                    <pre><code>$("li").each(function(index, element) {
+    console.log(index, $(this).text());
+});
+
+// 过滤
+$("li").first();    // 第一个
+$("li").last();     // 最后一个
+$("li").eq(2);      // 第3个（索引2）
+$("li").filter(".active");  // 过滤</code></pre>
+
+                    <h4>查找</h4>
+                    <pre><code>$("#box").find("p");      // 后代元素
+$("#box").children();      // 直接子元素
+$("#box").parent();        // 父元素
+$("#box").siblings();      // 兄弟元素
+$("#box").next();          // 下一个兄弟
+$("#box").prev();          // 上一个兄弟</code></pre>
+                </div>
+                <div class="col-md-6">
+                    <h4>尺寸</h4>
+                    <pre><code>$("#box").width();          // 内容宽度
+$("#box").height();         // 内容高度
+$("#box").innerWidth();     // 含 padding
+$("#box").outerWidth();     // 含 padding + border
+$("#box").outerWidth(true); // 含 padding + border + margin</code></pre>
+
+                    <h4>位置</h4>
+                    <pre><code>$("#box").offset();         // 相对于文档的位置
+$("#box").position();       // 相对于父元素的位置
+$("#box").scrollTop();      // 垂直滚动位置
+$("#box").scrollLeft();     // 水平滚动位置</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center text-muted py-4">
+            <p>jQuery 快速指南 | HTML Lab</p>
+        </div>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

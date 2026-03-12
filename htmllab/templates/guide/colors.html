@@ -1,0 +1,579 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web 颜色指南 - HTML Lab</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .guide-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .section-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-card h2 {
+            color: #495057;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        .section-card h3 {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            color: #d63384;
+            font-size: 0.875em;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e9ecef;
+            overflow-x: auto;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            color: #212529;
+        }
+        .tip-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+        
+        /* 颜色卡片样式 */
+        .color-card {
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .color-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .color-card .color-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        .color-card .color-hex {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+        .color-card .copy-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        .color-card:hover .copy-hint {
+            opacity: 1;
+        }
+        .color-card.copied .copy-hint {
+            opacity: 1;
+            background: rgba(40, 167, 69, 0.9);
+        }
+        
+        /* 渐变色块 */
+        .gradient-box {
+            height: 80px;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* 配色方案卡片 */
+        .palette-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+        .palette-colors {
+            display: flex;
+            height: 60px;
+        }
+        .palette-color {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: flex 0.3s;
+        }
+        .palette-color:hover {
+            flex: 1.5;
+        }
+        .palette-info {
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-header">
+        <div class="container">
+            <h1><i class="bi bi-palette me-2"></i>Web 颜色指南</h1>
+            <p class="mb-0">点击颜色可复制色值，快速应用到你的项目中</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 颜色表示法 -->
+        <div class="section-card">
+            <h2><i class="bi bi-info-circle me-2"></i>颜色表示法</h2>
+            <p>在 CSS 中，有四种主要方式表示颜色：</p>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3>1. 颜色名称 (Named Colors)</h3>
+                    <pre><code>color: red;
+background-color: blue;
+border-color: green;</code></pre>
+                    <p class="text-muted small">CSS 定义了 140+ 个标准颜色名称</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h3>2. 十六进制 (HEX)</h3>
+                    <pre><code>color: #ff0000;      /* 红色 */
+color: #f00;         /* 简写 */
+color: #ff000080;    /* 带透明度 */</code></pre>
+                    <p class="text-muted small">#RRGGBB 格式，两两一对表示红绿蓝</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3>3. RGB / RGBA</h3>
+                    <pre><code>color: rgb(255, 0, 0);         /* 红色 */
+color: rgba(255, 0, 0, 0.5); /* 半透明红 */
+color: rgb(255 0 0 / 50%);   /* 新语法 */</code></pre>
+                    <p class="text-muted small">0-255 表示红绿蓝，A 表示透明度 (0-1)</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h3>4. HSL / HSLA</h3>
+                    <pre><code>color: hsl(0, 100%, 50%);       /* 红色 */
+color: hsla(0, 100%, 50%, 0.5); /* 半透明 */</code></pre>
+                    <p class="text-muted small">H=色相(0-360), S=饱和度(%), L=亮度(%)</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 小贴士：</strong>HEX 最常用，HSL 最适合调整颜色（容易理解亮度/饱和度）
+            </div>
+        </div>
+
+        <!-- 基础颜色 -->
+        <div class="section-card">
+            <h2><i class="bi bi-palette-fill me-2"></i>基础颜色</h2>
+            
+            <h3>红色系</h3>
+            <div class="row g-2">
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #ffebee; color: #333;" data-color="#ffebee">
+                        <div class="color-name">Red 50</div>
+                        <div class="color-hex">#ffebee</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #ffcdd2; color: #333;" data-color="#ffcdd2">
+                        <div class="color-name">Red 100</div>
+                        <div class="color-hex">#ffcdd2</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #ef5350;" data-color="#ef5350">
+                        <div class="color-name">Red 400</div>
+                        <div class="color-hex">#ef5350</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #f44336;" data-color="#f44336">
+                        <div class="color-name">Red 500</div>
+                        <div class="color-hex">#f44336</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #d32f2f;" data-color="#d32f2f">
+                        <div class="color-name">Red 700</div>
+                        <div class="color-hex">#d32f2f</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #b71c1c;" data-color="#b71c1c">
+                        <div class="color-name">Red 900</div>
+                        <div class="color-hex">#b71c1c</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>蓝色系</h3>
+            <div class="row g-2">
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #e3f2fd; color: #333;" data-color="#e3f2fd">
+                        <div class="color-name">Blue 50</div>
+                        <div class="color-hex">#e3f2fd</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #90caf9; color: #333;" data-color="#90caf9">
+                        <div class="color-name">Blue 200</div>
+                        <div class="color-hex">#90caf9</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #42a5f5;" data-color="#42a5f5">
+                        <div class="color-name">Blue 400</div>
+                        <div class="color-hex">#42a5f5</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #2196f3;" data-color="#2196f3">
+                        <div class="color-name">Blue 500</div>
+                        <div class="color-hex">#2196f3</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #1976d2;" data-color="#1976d2">
+                        <div class="color-name">Blue 700</div>
+                        <div class="color-hex">#1976d2</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #0d47a1;" data-color="#0d47a1">
+                        <div class="color-name">Blue 900</div>
+                        <div class="color-hex">#0d47a1</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>绿色系</h3>
+            <div class="row g-2">
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #e8f5e9; color: #333;" data-color="#e8f5e9">
+                        <div class="color-name">Green 50</div>
+                        <div class="color-hex">#e8f5e9</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #a5d6a7; color: #333;" data-color="#a5d6a7">
+                        <div class="color-name">Green 200</div>
+                        <div class="color-hex">#a5d6a7</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #66bb6a;" data-color="#66bb6a">
+                        <div class="color-name">Green 400</div>
+                        <div class="color-hex">#66bb6a</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #4caf50;" data-color="#4caf50">
+                        <div class="color-name">Green 500</div>
+                        <div class="color-hex">#4caf50</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #388e3c;" data-color="#388e3c">
+                        <div class="color-name">Green 700</div>
+                        <div class="color-hex">#388e3c</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #1b5e20;" data-color="#1b5e20">
+                        <div class="color-name">Green 900</div>
+                        <div class="color-hex">#1b5e20</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>其他常用色</h3>
+            <div class="row g-2">
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #ff9800;" data-color="#ff9800">
+                        <div class="color-name">Orange</div>
+                        <div class="color-hex">#ff9800</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #9c27b0;" data-color="#9c27b0">
+                        <div class="color-name">Purple</div>
+                        <div class="color-hex">#9c27b0</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #795548;" data-color="#795548">
+                        <div class="color-name">Brown</div>
+                        <div class="color-hex">#795548</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #607d8b;" data-color="#607d8b">
+                        <div class="color-name">Blue Grey</div>
+                        <div class="color-hex">#607d8b</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #212121;" data-color="#212121">
+                        <div class="color-name">Dark</div>
+                        <div class="color-hex">#212121</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="color-card" style="background: #f5f5f5; color: #333;" data-color="#f5f5f5">
+                        <div class="color-name">Light</div>
+                        <div class="color-hex">#f5f5f5</div>
+                        <div class="copy-hint">点击复制</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 渐变色 -->
+        <div class="section-card">
+            <h2><i class="bi bi-rainbow me-2"></i>常用渐变色</h2>
+            
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">紫罗兰渐变</div>
+                    <pre class="mb-0"><code>background: linear-gradient(
+  135deg, 
+  #667eea 0%, 
+  #764ba2 100%
+);</code></pre>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">粉紫渐变</div>
+                    <pre class="mb-0"><code>background: linear-gradient(
+  135deg, 
+  #f093fb 0%, 
+  #f5576c 100%
+);</code></pre>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">天蓝渐变</div>
+                    <pre class="mb-0"><code>background: linear-gradient(
+  135deg, 
+  #4facfe 0%, 
+  #00f2fe 100%
+);</code></pre>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">青绿渐变</div>
+                    <pre class="mb-0"><code>background: linear-gradient(
+  135deg, 
+  #43e97b 0%, 
+  #38f9d7 100%
+);</code></pre>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">暖色渐变</div>
+                    <pre class="mb-0"><code>background: linear-gradient(
+  135deg, 
+  #fa709a 0%, 
+  #fee140 100%
+);</code></pre>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333;">清新渐变</div>
+                    <pre class="mb-0"><code>background: linear-gradient(
+  135deg, 
+  #a8edea 0%, 
+  #fed6e3 100%
+);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 配色方案 -->
+        <div class="section-card">
+            <h2><i class="bi bi-grid-3x3-gap me-2"></i>推荐配色方案</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="palette-card">
+                        <div class="palette-colors">
+                            <div class="palette-color" style="background: #0d47a1;" data-color="#0d47a1">深蓝</div>
+                            <div class="palette-color" style="background: #1976d2;" data-color="#1976d2">蓝色</div>
+                            <div class="palette-color" style="background: #42a5f5;" data-color="#42a5f5">浅蓝</div>
+                            <div class="palette-color" style="background: #90caf9; color: #333;" data-color="#90caf9">天蓝</div>
+                            <div class="palette-color" style="background: #e3f2fd; color: #333;" data-color="#e3f2fd">极浅</div>
+                        </div>
+                        <div class="palette-info"><strong>海洋蓝</strong> - 专业、可信赖的商务风格</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="palette-card">
+                        <div class="palette-colors">
+                            <div class="palette-color" style="background: #1b5e20;" data-color="#1b5e20">深绿</div>
+                            <div class="palette-color" style="background: #388e3c;" data-color="#388e3c">绿色</div>
+                            <div class="palette-color" style="background: #66bb6a;" data-color="#66bb6a">浅绿</div>
+                            <div class="palette-color" style="background: #a5d6a7; color: #333;" data-color="#a5d6a7">嫩绿</div>
+                            <div class="palette-color" style="background: #e8f5e9; color: #333;" data-color="#e8f5e9">极浅</div>
+                        </div>
+                        <div class="palette-info"><strong>自然绿</strong> - 生态、健康、有机主题</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="palette-card">
+                        <div class="palette-colors">
+                            <div class="palette-color" style="background: #c62828;" data-color="#c62828">深红</div>
+                            <div class="palette-color" style="background: #f44336;" data-color="#f44336">红色</div>
+                            <div class="palette-color" style="background: #ff7043;" data-color="#ff7043">橙红</div>
+                            <div class="palette-color" style="background: #ffab91; color: #333;" data-color="#ffab91">浅橙</div>
+                            <div class="palette-color" style="background: #fbe9e7; color: #333;" data-color="#fbe9e7">极浅</div>
+                        </div>
+                        <div class="palette-info"><strong>活力红</strong> - 热情、活力、促销主题</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="palette-card">
+                        <div class="palette-colors">
+                            <div class="palette-color" style="background: #263238;" data-color="#263238">深灰</div>
+                            <div class="palette-color" style="background: #455a64;" data-color="#455a64">蓝灰</div>
+                            <div class="palette-color" style="background: #78909c;" data-color="#78909c">灰色</div>
+                            <div class="palette-color" style="background: #b0bec5; color: #333;" data-color="#b0bec5">浅灰</div>
+                            <div class="palette-color" style="background: #eceff1; color: #333;" data-color="#eceff1">极浅</div>
+                        </div>
+                        <div class="palette-info"><strong>极简灰</strong> - 现代、简约、专业风格</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用技巧 -->
+        <div class="section-card">
+            <h2><i class="bi bi-lightbulb me-2"></i>配色使用技巧</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>60-30-10 法则</h3>
+                    <ul>
+                        <li><strong>60%</strong> - 主色（背景、大面积）</li>
+                        <li><strong>30%</strong> - 次要色（区块、卡片）</li>
+                        <li><strong>10%</strong> - 强调色（按钮、链接）</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h3>对比度原则</h3>
+                    <ul>
+                        <li>深色背景用浅色文字</li>
+                        <li>浅色背景用深色文字</li>
+                        <li>保证足够的可读性对比</li>
+                        <li>可用在线工具检查对比度</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip-box"
+>
+                <strong>💡 颜色心理学：</strong><br>
+                红色 = 激情、紧急 | 蓝色 = 专业、信任 | 绿色 = 自然、安全<br>
+                黄色 = 活力、注意 | 紫色 = 奢华、创意 | 黑色 = 高端、神秘
+            </div>
+        </div>
+
+        <div class="text-center text-muted py-4">
+            <p>Web 颜色指南 | HTML Lab</p>
+        </div>
+    </div>
+
+    <script>
+        // 点击复制颜色
+        document.querySelectorAll('.color-card, .palette-color').forEach(card => {
+            card.addEventListener('click', function() {
+                const color = this.dataset.color;
+                if (color) {
+                    navigator.clipboard.writeText(color).then(() => {
+                        this.classList.add('copied');
+                        this.querySelector('.copy-hint').textContent = '已复制!';
+                        setTimeout(() => {
+                            this.classList.remove('copied');
+                            this.querySelector('.copy-hint').textContent = '点击复制';
+                        }, 1500);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

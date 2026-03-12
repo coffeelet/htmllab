@@ -17,7 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from htmllab.views import StaticFileView, ManageView, ManagePageView
+from htmllab.views import (
+    StaticFileView,
+    ManageView,
+    ManagePageView,
+    GuideBootstrapView,
+    GuideJqueryView,
+    GuideColorsView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +32,10 @@ urlpatterns = [
     path('manage/', ManageView.as_view(), name='manage'),
     # 管理模式页面代理（处理 HTML 链接替换）
     path('manage/page/<str:page>', ManagePageView.as_view(), name='manage_page'),
+    # 指南页面
+    path('guide/bootstrap/', GuideBootstrapView.as_view(), name='guide_bootstrap'),
+    path('guide/jquery/', GuideJqueryView.as_view(), name='guide_jquery'),
+    path('guide/colors/', GuideColorsView.as_view(), name='guide_colors'),
     # 根路径 - 显示 index.html
     path('', StaticFileView.as_view(), name='index'),
     # 匹配 www 目录下的所有文件

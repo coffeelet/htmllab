@@ -94,10 +94,31 @@ class ManageView(View):
 
         return render(request, 'manage.html', context)
 
+class GuideBootstrapView(View):
+    """Bootstrap 5 快速指南视图"""
+
+    def get(self, request):
+        return render(request, 'guide/bootstrap.html')
+
+
+class GuideJqueryView(View):
+    """jQuery 快速指南视图"""
+
+    def get(self, request):
+        return render(request, 'guide/jquery.html')
+
+
+class GuideColorsView(View):
+    """Web 颜色指南视图"""
+
+    def get(self, request):
+        return render(request, 'guide/colors.html')
+
+
 @method_decorator(xframe_options_exempt, name='dispatch')
 class ManagePageView(View):
     """管理模式页面代理视图 - 返回处理后的 HTML 内容，替换内部链接"""
-    
+
     def get(self, request, page):
         """处理 GET 请求，返回处理后的 HTML"""
         www_dir = Path(settings.WWW_DIR)
