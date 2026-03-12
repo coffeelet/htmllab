@@ -9,6 +9,7 @@
 - **默认首页**：访问根路径自动加载 `www/index.html`
 - **目录安全**：防止目录遍历攻击
 - **MIME 类型自动识别**：根据文件扩展名自动设置 Content-Type
+- **页面生成工具**：内置命令行工具快速创建新页面
 
 ## 项目结构
 
@@ -16,6 +17,9 @@
 htmlLab/
 ├── manage.py              # Django 管理命令
 ├── htmllab/               # 项目配置目录
+│   ├── management/        # 自定义管理命令
+│   │   └── commands/
+│   │       └── createpage.py  # 创建新页面命令
 │   ├── settings.py        # Django 设置
 │   ├── urls.py           # URL 路由配置
 │   ├── views.py          # 静态文件视图
@@ -62,6 +66,23 @@ python manage.py runserver
 - `www/about.html` - 可通过 `/about.html` 访问
 - `www/css/style.css` - 可通过 `/css/style.css` 访问
 - `www/js/app.js` - 可通过 `/js/app.js` 访问
+
+### 4. 创建新页面
+
+使用内置命令快速创建新页面：
+
+```bash
+# 创建新页面（基于 index.html 模板）
+python manage.py createpage about
+
+# 创建带自定义标题的页面
+python manage.py createpage contact --title "联系我们"
+
+# 使用其他模板文件
+python manage.py createpage blog --template about.html --title "博客"
+```
+
+创建的文件将保存在 `www/` 目录，可直接通过浏览器访问。
 
 ## 使用示例
 
