@@ -1,6 +1,7 @@
 # HTML Lab
 
-一个基于 Django 的 Web 服务器模拟器，可以直接解析和提供 www 目录下的静态文件（HTML、CSS、JavaScript）。
+HTML Lab是一个基于 Django 的 Web 服务器模拟器，可以直接解析和提供 www 目录下的静态文件（HTML、CSS、JavaScript）。 HTML Lab是给WEB初学者一个简单的学习工具。
+让初学者更容易理解html, css, js以及服务器之间的关系。
 
 ## 功能特性
 
