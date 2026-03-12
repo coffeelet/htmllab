@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from htmllab.views import StaticFileView
+from htmllab.views import StaticFileView, ManageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # 管理模式
+    path('manage/', ManageView.as_view(), name='manage'),
     # 根路径 - 显示 index.html
     path('', StaticFileView.as_view(), name='index'),
     # 匹配 www 目录下的所有文件

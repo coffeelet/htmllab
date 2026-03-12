@@ -4,9 +4,13 @@ from pathlib import Path
 
 from django.conf import settings
 from django.http import FileResponse, Http404, HttpResponse
+from django.shortcuts import render
 from django.views import View
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.utils.decorators import method_decorator
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
 class StaticFileView(View):
     """提供 www 目录和 static 目录下的静态文件"""
     
@@ -48,3 +52,43 @@ class StaticFileView(View):
             content_type=content_type,
             as_attachment=False
         )
+
+
+class ManageView(View):
+    """管理模式视图 - 使用 iframe 显示 HTML 页面"""
+
+    def get(self, request):
+        """处理 GET 请求"""
+        # 获取当前要显示的页面（通过 query string）
+        current_page = request.GET.get('page', 'index.html')
+
+        # 扫描 www 目录获取所有 HTML 页面列表
+        www_dir = Path(settings.WWW_DIR)
+        pages = []
+
+        if www_dir.exists():
+            for file_path in www_dir.iterdir():
+                if file_path.is_file() and file_path.suffix == '.html':
+                    pages.append({
+                        'name': file_path.stem,
+                        'filename': file_path.name,
+                        'title': file_path.stem.replace('-', ' ').replace('_', ' ').title()
+                    })
+
+        # 按名称排序
+        pages.sort(key=lambda x: x['name'])
+
+        # 构建完整的 iframe URL（包含 host 和 port）
+        scheme = request.scheme
+        host = request.get_host()
+        iframe_url = f"{scheme}://{host}/{current_page}"
+
+        context = {
+            'pages': pages,
+            'current_page': current_page,
+            'page_count': len(pages),
+            'iframe_url': iframe_url,
+            'host': host,
+        }
+
+        return render(request, 'manage.html', context)

@@ -10,6 +10,7 @@
 - **目录安全**：防止目录遍历攻击
 - **MIME 类型自动识别**：根据文件扩展名自动设置 Content-Type
 - **页面生成工具**：内置命令行工具快速创建新页面
+- **管理模式**：可视化页面管理界面，通过 iframe 预览页面
 
 ## 项目结构
 
@@ -20,6 +21,11 @@ htmlLab/
 │   ├── management/        # 自定义管理命令
 │   │   └── commands/
 │   │       └── createpage.py  # 创建新页面命令
+│   ├── templates/         # Django 模板目录
+│   │   └── manage.html   # 管理模式界面模板
+│   ├── static/            # 静态文件目录
+│   │   ├── bootstrap/    # Bootstrap CSS/JS
+│   │   └── jquery/       # jQuery 库
 │   ├── settings.py        # Django 设置
 │   ├── urls.py           # URL 路由配置
 │   ├── views.py          # 静态文件视图
@@ -83,6 +89,26 @@ python manage.py createpage blog --template about.html --title "博客"
 ```
 
 创建的文件将保存在 `www/` 目录，可直接通过浏览器访问。
+
+### 5. 管理模式
+
+访问管理模式界面，可视化管理和预览所有页面：
+
+```
+http://127.0.0.1:8000/manage/
+```
+
+**管理模式功能：**
+
+- **页面预览**：使用 iframe 嵌套显示 HTML 页面
+- **导航栏**：
+  - **页面下拉菜单**：显示所有已创建的页面，点击切换预览
+  - **Bootstrap 指南**：链接到 Bootstrap 官方文档
+  - **jQuery 指南**：链接到 jQuery API 文档
+  - **颜色指南**：链接到 Color Hunt 配色网站
+  - **MDN 文档**：链接到 MDN Web 文档
+- **实时预览**：自动显示 `www/` 目录下的所有页面
+- **页面统计**：显示当前页面总数
 
 ## 使用示例
 
