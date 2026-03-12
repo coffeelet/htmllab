@@ -40,7 +40,21 @@ htmlLab/
 
 ## 快速开始
 
-### 1. 安装依赖
+### 0. 系统依赖
+
+#### Python
+
+建议使用 Python 3.13 (Only for django 5)
+
+https://www.python.org/downloads/
+
+#### IDE
+
+推荐使用PyCharm, 下载链接
+
+  https://www.jetbrains.com/pycharm/download/
+
+### 1. 安装python依赖
 
 **生产环境：**
 ```bash
