@@ -95,4 +95,3 @@ class Command(BaseCommand):
             )
         )
         self.stdout.write(f'File location: {target_path}')
-        self.stdout.write(f'Access URL: http://127.0.0.1:8000/{filename}')

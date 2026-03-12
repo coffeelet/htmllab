@@ -107,6 +107,7 @@ http://127.0.0.1:8000/manage/
 **管理模式功能：**
 
 - **页面预览**：使用 iframe 嵌套显示 HTML 页面
+- **智能链接替换**：页面内的链接（如 `/index.html` 或 `about.html`）会自动替换为管理模式 URL（`http://localhost:18000/manage/?page=index.html`），点击后在管理界面内跳转
 - **导航栏**：
   - **页面下拉菜单**：显示所有已创建的页面，点击切换预览
   - **Bootstrap 指南**：链接到 Bootstrap 官方文档
