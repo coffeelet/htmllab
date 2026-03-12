@@ -169,10 +169,10 @@ class ManagePageView(View):
             if href_normalized not in html_pages and f'/{href_normalized}' not in html_pages and href not in html_pages:
                 return full_tag
             
-            # 构建管理模式的 URL
+            # 构建管理模式的 URL (使用相对路径)
             page_filename = href_normalized
-            manage_url = f"{manage_base_url}?page={page_filename}"
-            
+            manage_url = f"/manage/?page={page_filename}"
+
             # 替换 href
             new_attrs = re.sub(r'href=["\'][^"\']+["\']', f'href="{manage_url}"', attrs)
             

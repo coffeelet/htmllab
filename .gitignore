@@ -153,5 +153,8 @@ secret_key.txt
 logs/
 
 #www
-www/*.html
+www/*
+!www/index.html
+!www/style.css
+!www/script.js
 
