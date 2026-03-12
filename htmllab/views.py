@@ -147,44 +147,50 @@ class ManagePageView(View):
         
         # 替换 HTML 中的链接
         # 处理指向 HTML 文件的 <a> 标签，添加 target="_parent"
+        # 替换 HTML 中的链接
         def replace_link(match):
             """替换链接并添加 target=_parent"""
             full_tag = match.group(0)
             attrs = match.group(1)
-            
+
             # 提取 href 值
             href_match = re.search(r'href=["\']([^"\']+)["\']', attrs)
             if not href_match:
                 return full_tag
-            
-            href = href_match.group(1)
-            
-            # 检查是否指向 www 目录中的 HTML 文件
-            # 支持多种格式: index.html, /index.html, ./index.html
-            href_normalized = href.lstrip('./')
-            if href.startswith('/'):
-                href_normalized = href[1:]  # 去掉开头的 /
-            
-            # 检查是否在 HTML 页面列表中
-            if href_normalized not in html_pages and f'/{href_normalized}' not in html_pages and href not in html_pages:
-                return full_tag
-            
-            # 构建管理模式的 URL (使用相对路径)
-            page_filename = href_normalized
-            manage_url = f"/manage/?page={page_filename}"
 
-            # 替换 href
-            new_attrs = re.sub(r'href=["\'][^"\']+["\']', f'href="{manage_url}"', attrs)
-            
-            # 如果已有 target 属性，保留它
-            if 'target=' in new_attrs.lower():
-                return f'<a{new_attrs}>'
-            
-            # 添加 target="_parent"
-            new_attrs = new_attrs.rstrip() + ' target="_parent"'
-            
-            return f'<a{new_attrs}>'
-        
+            href = href_match.group(1)
+
+            # 忽略外部链接、锚点和 javascript:
+            if any(href.startswith(p) for p in ['http://', 'https://', '#', 'javascript:', 'mailto:', 'tel:']):
+                return full_tag
+
+            # 规范化路径：去掉开头的 ./ 和 /
+            path_part = href.split('?')[0].split('#')[0]
+            href_normalized = path_part.lstrip('./')
+            if href_normalized.startswith('/'):
+                href_normalized = href_normalized[1:]
+
+            # 检查是否指向 HTML 页面
+            is_html = href_normalized.endswith('.html') or ('.' not in href_normalized and href_normalized != '')
+
+            if is_html:
+                # 检查是否在 www 目录中
+                page_filename = href_normalized if href_normalized.endswith('.html') else f"{href_normalized}.html"
+
+                # 如果这个文件确实存在，则重写为管理链接
+                if page_filename in html_pages:
+                    manage_url = f"/manage/?page={page_filename}"
+                    new_attrs = re.sub(r'href=["\'][^"\']+["\']', f'href="{manage_url}"', attrs)
+
+                    # 强制添加 target="_parent"
+                    if 'target=' in new_attrs.lower():
+                        new_attrs = re.sub(r'target=["\'][^"\']+["\']', 'target="_parent"', new_attrs, flags=re.IGNORECASE)
+                    else:
+                        new_attrs = new_attrs.rstrip() + ' target="_parent"'
+
+                    return f'<a{new_attrs}>'
+
+            return full_tag
         # 使用正则表达式匹配所有 <a> 标签
         # 匹配 <a ...> 但不包括 > 在属性值中的情况
         html_content = re.sub(r'<a([^>]+)>', replace_link, html_content)
