@@ -4,43 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML Lab - Web 服务器模拟器</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>HTML Lab</h1>
-            <p>欢迎使用 Web 服务器模拟器</p>
+<body class="bg-light">
+    <div class="container py-5">
+        <!-- Header -->
+        <header class="text-center mb-5 py-4 bg-gradient rounded-3 shadow-sm">
+            <h1 class="display-4 fw-bold text-white mb-2">HTML Lab</h1>
+            <p class="lead text-white-50">欢迎使用 Web 服务器模拟器</p>
         </header>
         
         <main>
-            <section class="intro">
-                <h2>项目说明</h2>
-                <p>这是一个基于 Django 5 的 Web 服务器模拟器，可以直接读取 www 目录下的 HTML、CSS 和 JavaScript 文件。</p>
+            <!-- Project Info -->
+            <section class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-3">
+                        <i class="bi bi-info-circle"></i> 项目说明
+                    </h2>
+                    <p class="card-text">这是一个基于 Django 5 的 Web 服务器模拟器，可以直接读取 www 目录下的 HTML、CSS 和 JavaScript 文件。</p>
+                </div>
             </section>
             
-            <section class="features">
-                <h2>功能特性</h2>
-                <ul>
-                    <li>自动解析 HTML 文件</li>
-                    <li>支持 CSS 样式</li>
-                    <li>支持 JavaScript 交互</li>
-                    <li>无需数据库，直接读取文件</li>
-                </ul>
+            <!-- Features -->
+            <section class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-3">
+                        <i class="bi bi-stars"></i> 功能特性
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <span class="badge bg-success me-2">✓</span> 自动解析 HTML 文件
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge bg-success me-2">✓</span> 支持 CSS 样式
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <span class="badge bg-success me-2">✓</span> 支持 JavaScript 交互
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge bg-success me-2">✓</span> 无需数据库，直接读取文件
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </section>
             
-            <section class="demo">
-                <h2>交互演示</h2>
-                <button id="clickBtn" class="btn">点击我</button>
-                <p id="message"></p>
+            <!-- Demo -->
+            <section class="card mb-4 shadow-sm">
+                <div class="card-body text-center">
+                    <h2 class="card-title text-primary mb-4">
+                        <i class="bi bi-hand-index-thumb"></i> 交互演示
+                    </h2>
+                    <button id="clickBtn" class="btn btn-primary btn-lg px-5">
+                        <span class="spinner-border spinner-border-sm d-none" id="btnSpinner"></span>
+                        点击我
+                    </button>
+                    <div id="message" class="alert alert-info mt-4 d-none" role="alert"></div>
+                </div>
+            </section>
+            
+            <!-- Bootstrap Components Demo -->
+            <section class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-3">Bootstrap 组件展示</h2>
+                    
+                    <!-- Button variants -->
+                    <div class="mb-3">
+                        <h5>按钮样式</h5>
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-success">Success</button>
+                        <button class="btn btn-danger">Danger</button>
+                        <button class="btn btn-warning">Warning</button>
+                        <button class="btn btn-info">Info</button>
+                    </div>
+                    
+                    <!-- Progress bar -->
+                    <div class="mb-3">
+                        <h5>进度条</h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 75%">75%</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal button -->
+                    <div class="mb-3">
+                        <h5>模态框</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            打开模态框
+                        </button>
+                    </div>
+                </div>
             </section>
         </main>
         
-        <footer>
-            <p>HTML Lab &copy; 2026 - Django 5 Web Server Simulator</p>
+        <!-- Footer -->
+        <footer class="text-center py-4 mt-5 text-muted border-top">
+            <p class="mb-0">HTML Lab &copy; 2026 - Django 5 Web Server Simulator</p>
+            <small>Powered by Bootstrap 5 & jQuery</small>
         </footer>
     </div>
     
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">模态框示例</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    这是一个 Bootstrap 5 的模态框示例。你可以在这里放置任何内容。
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">保存更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
 </html>
