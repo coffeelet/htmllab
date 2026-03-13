@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 快速指南 - HTML Lab</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .guide-header {
+            background: linear-gradient(135deg, #2196f3 0%, #0d47a1 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .section-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-card h2 {
+            color: #2196f3;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            color: #d63384;
+            font-size: 0.875em;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e9ecef;
+            overflow-x: auto;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            color: #212529;
+        }
+        .box-model {
+            border: 2px dashed #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            background: #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-header">
+        <div class="container">
+            <h1><i class="bi bi-filetype-css me-2"></i>CSS 快速指南</h1>
+            <p class="mb-0">层叠样式表 (Cascading Style Sheets) 样式与布局</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section-card">
+            <h2>基础语法</h2>
+            <pre><code>/* 选择器 { 属性: 值; } */
+p {
+    color: blue;
+    font-size: 16px;
+    text-align: center;
+}</code></pre>
+        </div>
+
+        <div class="section-card">
+            <h2>选择器</h2>
+            <ul>
+                <li><code>h1</code>: 标签选择器（匹配所有 &lt;h1&gt;）</li>
+                <li><code>.classname</code>: 类选择器（匹配 class="classname"）</li>
+                <li><code>#idname</code>: ID 选择器（匹配 id="idname"）</li>
+                <li><code>a:hover</code>: 伪类（鼠标悬停在链接上时）</li>
+            </ul>
+        </div>
+
+        <div class="section-card">
+            <h2>盒子模型 (Box Model)</h2>
+            <p>每个 HTML 元素都可以看作一个盒子：</p>
+            <div class="box-model">
+                <div style="border: 1px solid #999; background: #fff; padding: 10px;">
+                    Margin (外边距)
+                    <div style="border: 1px solid #2196f3; background: #e3f2fd; padding: 10px; margin: 5px;">
+                        Border (边框)
+                        <div style="border: 1px solid #4caf50; background: #e8f5e9; padding: 10px; margin: 5px;">
+                            Padding (内边距)
+                            <div style="border: 1px solid #ff9800; background: #fff3e0; padding: 10px; margin: 5px;">
+                                Content (内容)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul>
+                <li><code>width</code> / <code>height</code>: 内容宽高</li>
+                <li><code>padding</code>: 内边距（内容与边框之间）</li>
+                <li><code>border</code>: 边框</li>
+                <li><code>margin</code>: 外边距（元素与其他元素之间）</li>
+            </ul>
+        </div>
+
+        <div class="section-card">
+            <h2>布局 (Flexbox)</h2>
+            <p>最常用的现代布局方式：</p>
+            <pre><code>.container {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;     /* 垂直居中 */
+    flex-direction: row;      /* 排列方向 */
+}</code></pre>
+        </div>
+    </div>
+</body>
+</html>

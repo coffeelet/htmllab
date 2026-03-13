@@ -101,6 +101,27 @@ class GuideBootstrapView(View):
         return render(request, 'guide/bootstrap.html')
 
 
+class GuideHtmlView(View):
+    """HTML 快速指南视图"""
+
+    def get(self, request):
+        return render(request, 'guide/html.html')
+
+
+class GuideCssView(View):
+    """CSS 快速指南视图"""
+
+    def get(self, request):
+        return render(request, 'guide/css.html')
+
+
+class GuideJavascriptView(View):
+    """JavaScript 快速指南视图"""
+
+    def get(self, request):
+        return render(request, 'guide/javascript.html')
+
+
 class GuideJqueryView(View):
     """jQuery 快速指南视图"""
 

@@ -22,6 +22,9 @@ from htmllab.views import (
     ManageView,
     ManagePageView,
     GuideBootstrapView,
+    GuideHtmlView,
+    GuideCssView,
+    GuideJavascriptView,
     GuideJqueryView,
     GuideColorsView,
 )
@@ -34,8 +37,12 @@ urlpatterns = [
     path('manage/page/<str:page>', ManagePageView.as_view(), name='manage_page'),
     # 指南页面
     path('guide/bootstrap/', GuideBootstrapView.as_view(), name='guide_bootstrap'),
+    path('guide/html/', GuideHtmlView.as_view(), name='guide_html'),
+    path('guide/css/', GuideCssView.as_view(), name='guide_css'),
+    path('guide/javascript/', GuideJavascriptView.as_view(), name='guide_javascript'),
     path('guide/jquery/', GuideJqueryView.as_view(), name='guide_jquery'),
     path('guide/colors/', GuideColorsView.as_view(), name='guide_colors'),
+
     # 根路径 - 显示 index.html
     path('', StaticFileView.as_view(), name='index'),
     # 匹配 www 目录下的所有文件

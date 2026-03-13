@@ -78,7 +78,7 @@ pip install django>=5.0
 python manage.py runserver
 ```
 
-服务器启动后，访问 http://127.0.0.1:8000/ 即可查看默认首页。
+服务器启动后，访问 http://127.0.0.1:18000/ 即可查看默认首页。
 
 ### 3. 自定义内容
 
@@ -116,7 +116,7 @@ python manage.py createpage blog --template other_template.html --title "博客"
 访问管理模式界面，可视化管理和预览所有页面：
 
 ```
-http://127.0.0.1:8000/manage/
+http://127.0.0.1:18000/manage/
 ```
 
 **管理模式功能：**
@@ -136,22 +136,22 @@ http://127.0.0.1:8000/manage/
 
 ### 访问首页
 ```
-http://127.0.0.1:8000/
+http://127.0.0.1:18000/
 ```
 自动加载 `www/index.html`
 
 ### 访问特定文件
 ```
-http://127.0.0.1:8000/about.html
-http://127.0.0.1:8000/css/style.css
-http://127.0.0.1:8000/js/app.js
+http://127.0.0.1:18000/about.html
+http://127.0.0.1:18000/css/style.css
+http://127.0.0.1:18000/js/app.js
 ```
 
 ### 指定端口
 ```bash
 python manage.py runserver 8080
 ```
-访问 http://127.0.0.1:8080/
+访问 http://127.0.0.1:18080/
 
 ## 开发指南
 
@@ -187,7 +187,7 @@ isort htmllab/
 
 ## 技术栈
 
-- **后端框架**: Django 6.0.3
+- **后端框架**: Django 5.0.3
 - **Python 版本**: 3.10+
 - **数据库**: SQLite（仅用于 Django 启动，项目不使用）
 
