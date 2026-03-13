@@ -149,7 +149,7 @@ http://127.0.0.1:18000/js/app.js
 
 ### 指定端口
 ```bash
-python manage.py runserver 8080
+python manage.py runserver 18000
 ```
 访问 http://127.0.0.1:18080/
 

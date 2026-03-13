@@ -51,8 +51,8 @@ Start the server:
 ```bash
 python manage.py runserver
 ```
-*   **Public View:** http://127.0.0.1:8000/ (Serves `www/index.html`)
-*   **Management View:** http://127.0.0.1:8000/manage/
+*   **Public View:** http://127.0.0.1:18000/ (Serves `www/index.html`)
+*   **Management View:** http://127.0.0.1:18000/manage/
 
 ### Common Commands
 

@@ -34,6 +34,13 @@
             margin-bottom: 1rem;
             font-size: 1.25rem;
         }
+        .section-card h3 {
+            color: #495057;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
         code {
             background-color: #f8f9fa;
             padding: 0.2rem 0.4rem;
@@ -60,76 +67,124 @@
             border-radius: 0 0.5rem 0.5rem 0;
             margin: 1rem 0;
         }
+        .ref-box {
+            background-color: #f0f4f8;
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
     </style>
 </head>
 <body>
     <div class="guide-header">
         <div class="container">
-            <h1><i class="bi bi-filetype-html me-2"></i>HTML 快速指南</h1>
-            <p class="mb-0">超文本标记语言 (HyperText Markup Language) 基础</p>
+            <h1><i class="bi bi-filetype-html me-2"></i>HTML 详细指南</h1>
+            <p class="mb-0">超文本标记语言 (HyperText Markup Language) 核心概念与实战</p>
         </div>
     </div>
 
     <div class="container">
+        <!-- 1. 基础结构 -->
         <div class="section-card">
-            <h2>基础骨架</h2>
-            <p>每个 HTML 页面都应该包含以下基础结构：</p>
-            <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="zh-CN"&gt;
+            <h2>1. 标准页面骨架</h2>
+            <p>每个现代 HTML 页面都应包含以下五个核心部分：</p>
+            <pre><code>&lt;!DOCTYPE html&gt; &lt;!-- 声明文档类型，告诉浏览器这是 HTML5 --&gt;
+&lt;html lang="zh-CN"&gt; &lt;!-- 根元素，指定页面语言 --&gt;
 &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;页面标题&lt;/title&gt;
+    &lt;!-- 元数据区域：不直接显示在页面上 --&gt;
+    &lt;meta charset="UTF-8"&gt; &lt;!-- 字符编码，防止乱码 --&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt; &lt;!-- 移动端适配 --&gt;
+    &lt;title&gt;页面标题 - 会显示在浏览器标签上&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
+    &lt;!-- 内容区域：所有可见内容都在这里 --&gt;
     &lt;h1&gt;你好，世界！&lt;/h1&gt;
-    &lt;p&gt;这是一个段落。&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
         </div>
 
+        <!-- 2. 引用外部资源 (重点) -->
         <div class="section-card">
-            <h2>常用标签</h2>
-            <h3>标题与文本</h3>
+            <h2>2. 引用外部资源 (CSS & JS)</h2>
+            <p>为了保持代码整洁，我们通常将样式和脚本放在独立的文件中。</p>
+            
+            <h3>引入 CSS 样式表</h3>
+            <p>使用 <code>&lt;link&gt;</code> 标签，通常放在 <code>&lt;head&gt;</code> 区域内：</p>
+            <pre><code>&lt;head&gt;
+    ...
+    &lt;!-- 引入本地 CSS 文件 --&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+    &lt;!-- 引入子目录中的 CSS 文件 --&gt;
+    &lt;link rel="stylesheet" href="css/layout.css"&gt;
+&lt;/head&gt;</code></pre>
+
+            <h3>引入 JavaScript 脚本</h3>
+            <p>使用 <code>&lt;script&gt;</code> 标签，建议放在 <code>&lt;/body&gt;</code> 标签结束之前：</p>
+            <pre><code>&lt;body&gt;
+    ... 所有的 HTML 内容 ...
+
+    &lt;!-- 引入外部 JS 文件 --&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+    &lt;!-- 引入子目录中的 JS 文件 --&gt;
+    &lt;script src="js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+            <div class="tip-box">
+                <strong>💡 为什么要把脚本放在底部？</strong><br>
+                浏览器在执行 JavaScript 时会停止渲染页面。放在底部可以确保用户先看到页面内容，提高加载速度体验。
+            </div>
+        </div>
+
+        <!-- 3. 常用标签详解 -->
+        <div class="section-card">
+            <h2>3. 核心标签分类</h2>
+            
+            <h3>文本布局</h3>
             <ul>
-                <li><code>&lt;h1&gt;</code> 到 <code>&lt;h6&gt;</code>: 标题（1级最大，6级最小）</li>
-                <li><code>&lt;p&gt;</code>: 段落</li>
-                <li><code>&lt;strong&gt;</code>: <strong>加粗文本</strong></li>
-                <li><code>&lt;em&gt;</code>: <em>斜体文本</em></li>
-                <li><code>&lt;br&gt;</code>: 换行</li>
+                <li><code>&lt;h1&gt;</code> ~ <code>&lt;h6&gt;</code>: 标题。<code>&lt;h1&gt;</code> 最重要，通常每个页面只用一个。</li>
+                <li><code>&lt;p&gt;</code>: 段落，会自动在上下产生间距。</li>
+                <li><code>&lt;div&gt;</code>: 无意义的块级容器，用于布局。</li>
+                <li><code>&lt;span&gt;</code>: 无意义的行内容器，用于包裹一小段文字。</li>
             </ul>
 
-            <h3>链接与图片</h3>
+            <h3>多媒体与链接</h3>
             <ul>
-                <li><code>&lt;a href="url"&gt;链接文本&lt;/a&gt;</code>: 超链接</li>
-                <li><code>&lt;img src="image.jpg" alt="描述文字"&gt;</code>: 图片</li>
+                <li><code>&lt;a href="目标地址"&gt;</code>: 超链接。可以使用 <code>target="_blank"</code> 在新窗口打开。</li>
+                <li><code>&lt;img src="图片地址" alt="替代文本"&gt;</code>: 图片。<code>alt</code> 对 SEO 和无障碍非常重要。</li>
             </ul>
 
             <h3>列表</h3>
-            <pre><code>&lt;!-- 无序列表 --&gt;
-&lt;ul&gt;
-    &lt;li&gt;列表项 1&lt;/li&gt;
-    &lt;li&gt;列表项 2&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;!-- 有序列表 --&gt;
-&lt;ol&gt;
-    &lt;li&gt;第一步&lt;/li&gt;
-    &lt;li&gt;第二步&lt;/li&gt;
-&lt;/ol&gt;</code></pre>
+            <pre><code>&lt;ul&gt; &lt;!-- 无序列表 --&gt;
+    &lt;li&gt;列表项 A&lt;/li&gt;
+    &lt;li&gt;列表项 B&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
         </div>
 
+        <!-- 4. 表单基础 -->
         <div class="section-card">
-            <h2>语义化标签</h2>
-            <p>使用具有明确意义的标签可以让搜索引擎和辅助设备更好地理解你的页面：</p>
-            <ul>
-                <li><code>&lt;header&gt;</code>: 头部区域</li>
-                <li><code>&lt;nav&gt;</code>: 导航链接</li>
-                <li><code>&lt;main&gt;</code>: 主要内容区域</li>
-                <li><code>&lt;section&gt;</code>: 章节或节</li>
-                <li><code>&lt;article&gt;</code>: 独立的文章内容</li>
-                <li><code>&lt;aside&gt;</code>: 侧边栏（次要内容）</li>
-                <li><code>&lt;footer&gt;</code>: 页脚区域</li>
-            </ul>
+            <h2>4. 表单与交互</h2>
+            <p>用于收集用户信息：</p>
+            <pre><code>&lt;form action="/submit" method="POST"&gt;
+    &lt;label for="username"&gt;用户名：&lt;/label&gt;
+    &lt;input type="text" id="username" name="user" placeholder="请输入姓名"&gt;
+    
+    &lt;button type="submit"&gt;提交&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+
+        <!-- 5. 语义化结构 -->
+        <div class="section-card">
+            <h2>5. 语义化布局 (HTML5)</h2>
+            <p>不要全部使用 <code>&lt;div&gt;</code>，尝试使用这些标签来构建页面：</p>
+            <div class="ref-box">
+                <code>&lt;header&gt;</code>: 页头<br>
+                <code>&lt;nav&gt;</code>: 导航栏<br>
+                <code>&lt;main&gt;</code>: 主体内容<br>
+                <code>&lt;article&gt;</code>: 独立文章<br>
+                <code>&lt;section&gt;</code>: 页面章节<br>
+                <code>&lt;aside&gt;</code>: 侧边栏<br>
+                <code>&lt;footer&gt;</code>: 页脚
+            </div>
         </div>
     </div>
 </body>
